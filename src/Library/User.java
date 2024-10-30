@@ -1,3 +1,5 @@
+package Library;
+
 public class User {
 
     protected String name;
