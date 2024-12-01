@@ -10,13 +10,12 @@ public class Main {
     public static void main(String[] args) {
 
         database = new Database();
+        System.out.println("Welcome to Library Management System # Maktabati-Pro-Project #");
 
         int num;
 
         do {
-            System.out.println("Welcome to Library Management System # Maktabati-Pro-Project # !\n"
-                    + "0. Exit\n"
-                    + "1. Login\n2. New User");
+            System.out.println("0. Exit\n1. Login\n2. New User");
 
             input = new Scanner(System.in);
             num = input.nextInt();
@@ -26,8 +25,6 @@ public class Main {
                     login();
                 case 2:
                     newUser();
-                default:
-                    System.out.println("Error!!!");
             }
         } while (num != 0);
     }
@@ -40,8 +37,9 @@ public class Main {
         int n = database.login(phoneNumber, email);
         if (n != -1) {
             User user = database.getUser(n);
+            user.menu();
         } else {
-            return;
+            System.out.println("User doesn't exist!");
         }
     }
 
@@ -54,12 +52,13 @@ public class Main {
         String email = input.next();
         System.out.println("1. Admin\n2. Normal User");
         int n2 = input.nextInt();
+        User user;
         if (n2 == 1) {
-            User admin = new Admin(name, email, phoneNumber);
-            database.AddUser(admin);
+            user = new Admin(name, email, phoneNumber);
         } else {
-            User user = new User(name, email, phoneNumber);
-            database.AddUser(user);
+            user = new NormalUser(name, email, phoneNumber);
         }
+        database.AddUser(user);
+        user.menu();
     }
 }
